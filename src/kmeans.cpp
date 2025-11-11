@@ -58,7 +58,6 @@ arma::uvec MyKmeans_c(const arma::mat& X, int K,
       
       // Check convergence
       if (arma::all(arma::vectorise(newM == curM))) {
-        Rcpp::Rcout << "MyKmeans finished in " << (iter + 1) << " iterations." << std::endl;
         break;
       }
       
