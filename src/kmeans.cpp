@@ -46,7 +46,21 @@ arma::uvec MyKmeans_c(const arma::mat& X, int K,
       
       
       // Compute new centroid values mu, check that it changed, and store into M
-
+      arma::mat newM(K, p, arma::fill::zeros);
+      for (unsigned int i = 0; i < n; i++) {
+        newM.row(Y[i]) += X.row(i);
+      }
+      for (int k = 0; k < K; k++) {
+        newM.row(k) /= counts[k];
+      }
+      
+      // Check convergence
+      if (arma::all(arma::vectorise(newM == M))) {
+        Rcpp::Rcout << "MyKmeans finished in " << (iter + 1) << " iterations." << std::endl;
+        break;
+      }
+      
+      M = newM;
     }
     
     // Returns the vector of cluster assignments
