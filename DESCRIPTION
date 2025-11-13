@@ -1,12 +1,19 @@
 Package: GroupHW
 Type: Package
-Title: What the package does (short line)
-Version: 1.0
-Date: 2020-10-17
-Author: Who wrote it
-Maintainer: Who to complain to <yourfault@somewhere.net>
-Description: More about what it does (maybe more than one line)
-License: What license is it under?
+Title: Kmeans_LRMultiClass_rcpp
+Version: 1.0.0
+Date: 2025-11-14
+Author: c(person("Jay", "Lee", 
+            email = "jaylee0717@tamu.edu",
+            role = "c("aut", "cre")),
+          person("Shlok", "Mishra",
+            email = "shlokmishra08@tamu.edu", 
+            role = "aut"))
+Maintainer: Jay Lee <jaylee0717@tamu.edu>
+Description: Converts Kmeans and LRMultiClass computation from HW2 and HW3, 
+        respectively, into rcpp computation to enhance computation cost. The 
+        inputs and outputs are assumed to be the same as from HW2 and HW3. 
+License: GPL (>= 3)
 Imports: Rcpp (>= 1.0.5)
 LinkingTo: Rcpp, RcppArmadillo
 RoxygenNote: 7.3.3
