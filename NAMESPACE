@@ -2,5 +2,6 @@
 
 export(LRMultiClass)
 export(MyKmeans)
+export(MyKmeans_R)
 importFrom(Rcpp,evalCpp)
 useDynLib(GroupHW, .registration = TRUE)
