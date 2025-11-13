@@ -33,37 +33,45 @@
 #' Y2 <- MyKmeans(X, K = 3, M = init_M)
 #' table(Y2)
 MyKmeans <- function(X, K, M = NULL, numIter = 100){
-  # Check that X is nxp matrix, assign values to n and p
+  # Validate and convert input matrix X
+  # Convert data.frame to matrix if needed
   if (is.data.frame(X)) X <- data.matrix(X)
+  # Check that X is a 2D numeric matrix
   if(!(is.matrix(X) && length(dim(X)) == 2)) {
-    stop("Error: X is not a 2D matrix.")
+    stop("X is not a 2D matrix.")
   }
+  
+  # Extract dimensions
   n <- nrow(X)
   p <- ncol(X)
-  # Check K is natural
-  if (!(length(K) == 1L && is.numeric(K) && K == as.integer(K) && K > 0L && K < n)) {
-    stop("Error: K must be a positive integer less than n.")
-  }
-  n = nrow(X) # number of rows in X
   
-  # Check whether M is NULL or not. If NULL, initialize based on K random points from X. If not NULL, check for compatibility with X dimensions.
+  # Validate K: must be a single positive integer less than n
+  if (!(length(K) == 1L && is.numeric(K) && K == as.integer(K) && K > 0L && K < n)) {
+    stop("K must be a positive integer less than n.")
+  }
+  
+  # Validate and initialize cluster centroids M
+  # Convert data.frame to matrix if needed
   if (is.data.frame(M)) M <- data.matrix(M)
+  
   if(is.null(M)){
+    # Random initialization: select K distinct rows from X
     idx <- sample.int(n, size = K, replace = FALSE)
     M <- X[idx, , drop=FALSE]
   }
   else if (is.matrix(M)) {
+    # Validate dimensions of provided M
     if (nrow(M) != K || ncol(M) != p) {
-      stop("Error: M must be a K x p matrix compatible with X and K.")
+      stop("M must be a K x p matrix compatible with X and K.")
     }
   }
   else {
-    stop("Error: M must be NULL or a numeric 2D matrix.")
+    stop("M must be NULL or a numeric 2D matrix.")
   }
   
-  # Call C++ MyKmeans_c function to implement the algorithm
-  Y = MyKmeans_c(X, K, M, numIter)
+  # Call C++ implementation to perform K-means clustering
+  Y <- MyKmeans_c(X, K, M, numIter)
   
-  # Return the class assignments
+  # Return cluster assignments
   return(Y)
 }
