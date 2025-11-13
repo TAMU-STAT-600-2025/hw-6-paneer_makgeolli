@@ -4,17 +4,11 @@ if (!requireNamespace("microbenchmark", quietly = TRUE)) {
   library(microbenchmark)
   library(GroupHW)
   
-  
-  
-  #' R version.
-  #'
-  #' @param X n by p matrix containing n data points to cluster
-  #' @param K integer specifying number of clusters
-  #' @param M (optional) K by p matrix of cluster centers
-  #' @param numIter number of maximal iterations for the algorithm, the default value is 100
-  #'
-  #' @returns Y
-  #' @export
+  # Function that implements K-means algorithm. The default number of maximal iterations is 100.
+  # X - n by p matrix containing n data points to cluster
+  # K - integer specifying number of clusters
+  # M - (optional) K by p matrix of cluster centers
+  # numIter - number of maximal iterations for the algorithm, the default value is 100
   MyKmeans_R <- function(X, K, M = NULL, numIter = 100){
     # Check that X is nxp matrix, assign values to n and p
     if (is.data.frame(X)) X <- data.matrix(X)
