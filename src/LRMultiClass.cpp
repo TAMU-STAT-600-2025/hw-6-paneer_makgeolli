@@ -22,7 +22,6 @@ Rcpp::List LRMultiClass_c(const arma::mat& X, const arma::uvec& y, const arma::m
      
     // Initialize some parameters
     int K = max(y) + 1; // number of classes
-    int p = X.n_cols;
     int n = X.n_rows;
     arma::mat beta = beta_init; // to store betas and be able to change them if needed
     arma::vec objective(numIter + 1); // to store objective values
@@ -58,7 +57,7 @@ Rcpp::List LRMultiClass_c(const arma::mat& X, const arma::uvec& y, const arma::m
     };
     
     // Helper function to compute objective (negative log-likelihood + ridge penalty)
-    auto compute_objective = [&softmax](const arma::mat& X, const arma::uvec& y, 
+    auto compute_objective = [](const arma::mat& X, const arma::uvec& y, 
                                         const arma::mat& beta, const arma::mat& P,
                                         double lambda) -> double {
         int n = X.n_rows;
