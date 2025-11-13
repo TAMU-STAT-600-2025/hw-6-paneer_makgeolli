@@ -1,4 +1,4 @@
-#' K-Means Clustering (Rccp Ver.)
+#' K-Means Clustering (Rcpp Ver.)
 #' 
 #' Performs K-means clustering on a numeric matrix. 
 #' It validates input, initializes centroids (if not already given),
