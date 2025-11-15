@@ -26,11 +26,11 @@ Rcpp::List LRMultiClass_c(const arma::mat& X, const arma::uvec& y, const arma::m
     arma::mat beta = beta_init; // to store betas and be able to change them if needed
     arma::vec objective(numIter + 1); // to store objective values
     
-    // Initialize indicator matrix for true class labels (constant across iterations)
+    // Initialize indicator matrix using vectorized assignment
+    arma::uvec lin_indices = arma::regspace<arma::uvec>(0, n - 1) + y * n;
     arma::mat indicator = arma::zeros<arma::mat>(n, K);
-    for (int i = 0; i < n; i++) {
-        indicator(i, y(i)) = 1.0;
-    }
+    indicator.elem(lin_indices).ones();
+    
     
     // Helper function to compute softmax probabilities
     auto softmax = [](const arma::mat& X, const arma::mat& beta) -> arma::mat {
